@@ -9,12 +9,12 @@ const Blogs = async ({ searchParams }: Props) => {
   const { q } = (await searchParams) ?? {};
   const query = typeof q === "string" ? q : "";
 
-  const blogs = getBlogs();
-  const filtered = blogs
+  const blogs = await getBlogs();
+ /*  const filtered = blogs
     .filter(blog =>
       blog.title.toLowerCase().includes(query.toLowerCase())
     )
-    .sort((a, b) => b.likes - a.likes);
+    .sort((a, b) => b.likes - a.likes); */
 
   return (
     <div>
@@ -29,7 +29,7 @@ const Blogs = async ({ searchParams }: Props) => {
         <button type="submit">Search</button>
       </form>
       <ul>
-        {filtered.map(blog => (
+        {blogs.map(blog => (
           <li key={blog.id}>
             {blog.author} - <a href={blog.url}>{blog.title}</a> ({blog.likes} likes)
             <Link href={`/blogs/${blog.id}`}>View</Link>

@@ -1,3 +1,10 @@
+import { eq } from "drizzle-orm"
+import { db } from "./../db"
+import { blogs } from "../../db/schema"
+
+
+
+
 export type Blog = {
   id: number;
   title: string;
@@ -8,7 +15,7 @@ export type Blog = {
 
 export type NewBlog = Omit<Blog, "id">;
 
-const blogs: Blog[] = [
+/* const blogs: Blog[] = [
   {
     id: 1,
     title: "React Server Components",
@@ -32,13 +39,17 @@ const blogs: Blog[] = [
   },
 ];
 
-let nextId = 4
+let nextId = 4 */
 
-export const getBlogs = () => {
+/* export const getBlogs = () => {
     return blogs
+} */
+
+ export const getBlogs = async () => {
+  return db.query.blogs.findMany()
 }
 
-export const addBlog = (blog: NewBlog) => {
+/* export const addBlog = (blog: NewBlog) => {
   const newBlog: Blog = { id: nextId++, ...blog };
 
   blogs.push(newBlog);
@@ -56,4 +67,4 @@ export const IncreaseLikes = (id: number) :Blog[] => {
     blog.likes += 1
   }
   return blogs
-}
+} */
